@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using XD.SDK.Common;
 
 namespace XD.SDK.Account{
-    public class XDGAccount{
+    public class XDGAccount
+    {
         public static void Login(List<LoginType> loginTypes, Action<XDGUser> callback, Action<XDGError> errorCallback){
-            XDGAccountImpl.GetInstance().Login(loginTypes, (u) => {
-                callback(u);
+            XDGAccountImpl.GetInstance().Login(loginTypes, (u) =>
+            {
+                XDGCommon.UserId = u.userId;
+                callback?.Invoke(u);
                 EventManager.LoginSuccessEvent();
 
                 if (u.loginType.ToLower().Equals("facebook")){
@@ -20,7 +23,8 @@ namespace XD.SDK.Account{
 
         public static void LoginByType(LoginType loginType, Action<XDGUser> callback, Action<XDGError> errorCallback){
             XDGAccountImpl.GetInstance().LoginByType(loginType, (u) => {
-                callback(u);
+                XDGCommon.UserId = u.userId;
+                callback?.Invoke(u);
                 EventManager.LoginSuccessEvent();
 
                 if (loginType == LoginType.Default){ //自动登录需要异步刷 Facebook token
@@ -36,7 +40,9 @@ namespace XD.SDK.Account{
         }
 
 
-        public static void Logout(){
+        public static void Logout()
+        {
+            XDGCommon.UserId = null;
             XDGAccountImpl.GetInstance().Logout();
         }
 
@@ -45,7 +51,11 @@ namespace XD.SDK.Account{
         }
 
         public static void GetUser(Action<XDGUser> callback, Action<XDGError> errorCallback){
-            XDGAccountImpl.GetInstance().GetUser(callback, errorCallback);
+            XDGAccountImpl.GetInstance().GetUser((u) =>
+            {
+                XDGCommon.UserId = u.userId;
+                callback?.Invoke(u);
+            }, errorCallback);
         }
 
         public static void OpenUserCenter(){
