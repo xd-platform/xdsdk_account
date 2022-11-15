@@ -82,12 +82,13 @@ namespace XD.SDK.Account{
                     str += "TWITTER,";
                 } else if (type == LoginType.Guest){
                     str += "GUEST,";
-                }
-                // else if (type == LoginType.WeChat){
-                //     str += "WECHAT,";
+                // } else if (type == LoginType.Twitch){
+                //     str += "TWITCH,";
+                } else if (type == LoginType.Steam){
+                    str += "STEAM,";
                 // } else if (type == LoginType.QQ){
                 //     str += "QQ,";
-                // }
+                }
             }
 
             return str;

@@ -33,8 +33,10 @@ typedef NS_ENUM(NSInteger,XDGLoginInfoType) {
     XDGLoginInfoTypeFacebook,
     XDGLoginInfoTypeTapTap,
     XDGLoginInfoTypeLine,
-    XDGLoginInfoTypeTwitter
-    
+    XDGLoginInfoTypeTwitter,
+    XDGLoginInfoTypeQQ,
+    XDGLoginInfoTypeTwitch,
+    XDGLoginInfoTypeSteam
 };
 
 @interface TDSGlobalThirdPartyLoginHelper : NSObject
