@@ -202,6 +202,8 @@ namespace XD.SDK.Account{
                     callback(XDGUserStatusCodeType.BIND, wrapper.message);
                 } else if (wrapper.code == (int) XDGUserStatusCodeType.UNBIND){
                     callback(XDGUserStatusCodeType.UNBIND, wrapper.message);
+                }else if (wrapper.code == (int) XDGUserStatusCodeType.ProtocolAgreedAfterLogout){
+                    callback(XDGUserStatusCodeType.ProtocolAgreedAfterLogout, wrapper.message);
                 } else{
                     XDGTool.LogError($"AddUserStatusChangeCallback 未知回调 :{result.ToJSON()}");
                     callback(XDGUserStatusCodeType.ERROR, wrapper.message);

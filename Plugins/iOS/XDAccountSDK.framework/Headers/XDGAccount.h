@@ -9,6 +9,7 @@ typedef NS_ENUM(NSInteger,XDGUserStateChangeCode) {
     XDGUserStateChangeCodeLogout          = 0x9001,   // user logout
     XDGUserStateChangeCodeBindSuccess     = 0x1001,   // user bind success,msg = entry type in string,eg: @"TAPTAP"
     XDGUserStateChangeCodeUnBindSuccess   = 0x1002,   // user unbind success,msg = entry type in string
+    XDGUserStateChangeCodeProtocolAgreedAfterLogout   = 0x2001,   // user clicked confirm in agreement dialog showed after logout
 };
 
 /**
