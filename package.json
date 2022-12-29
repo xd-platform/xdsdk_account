@@ -1,8 +1,8 @@
 {
   "name": "com.xd.sdk.account",
-  "version": "6.0.1",
+  "version": "6.8.2",
   "description": "XD-SDK Account",
-  "unity": "2019.4",
+  "unity": "2018.3",
   "license": "MIT",
   "dependencies": {
 

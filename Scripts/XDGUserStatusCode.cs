@@ -7,6 +7,8 @@ namespace XD.SDK.Account
          BIND = 0x1001,
         // 解绑
          UNBIND = 0x1002,
+         // 注销后确认协议
+         ProtocolAgreedAfterLogout = 0x2001,
         //出错了，未知code
          ERROR = -100
     }
