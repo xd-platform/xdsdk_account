@@ -20,7 +20,7 @@ namespace XD.SDK.Account{
                     return;
                 }
 
-                XDGAccountImpl.GetInstance().updateThirdPlatformTokenWithCallback(async (success) => {
+                XDGAccountMobileImpl.GetInstance().updateThirdPlatformTokenWithCallback(async (success) => {
                     if (success){
                         foreach (var bound in xdgUser.boundAccounts){
                             if (bound.ToLower().Equals("facebook")){
@@ -39,7 +39,7 @@ namespace XD.SDK.Account{
                                     }
 
                                     //获取最新信息
-                                    XDGAccountImpl.GetInstance().GetFacebookToken(async (newUid, newToken) => {
+                                    XDGAccountMobileImpl.GetInstance().GetFacebookToken(async (newUid, newToken) => {
                                             if (newUid.Equals(platUserId) && !newToken.Equals(platToken)){
                                                 //uid相同，token不同
                                                 fbDic["access_token"] = newToken;

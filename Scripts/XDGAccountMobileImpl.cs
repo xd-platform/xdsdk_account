@@ -8,20 +8,20 @@ using TapTap.Common;
 using XD.SDK.Common;
 
 namespace XD.SDK.Account{
-    public class XDGAccountImpl{
-        private XDGAccountImpl(){
+    public class XDGAccountMobileImpl{
+        private XDGAccountMobileImpl(){
             EngineBridge.GetInstance()
                 .Register(XDGUnityBridge.ACCOUNT_SERVICE_NAME, XDGUnityBridge.ACCOUNT_SERVICE_IMPL);
         }
 
         private readonly string XDG_ACCOUNT_SERVICE = "XDGLoginService"; //注意要和iOS本地的桥接文件名一样！ 
-        private static volatile XDGAccountImpl _instance;
+        private static volatile XDGAccountMobileImpl _instance;
         private static readonly object Locker = new object();
 
-        public static XDGAccountImpl GetInstance(){
+        public static XDGAccountMobileImpl GetInstance(){
             lock (Locker){
                 if (_instance == null){
-                    _instance = new XDGAccountImpl();
+                    _instance = new XDGAccountMobileImpl();
                 }
             }
 
