@@ -68,25 +68,25 @@ namespace XD.SDK.Account{
         private static string getLoginTypeStr(List<LoginType> types){
             var str = "";
             foreach (var type in types){
-                if (type == LoginType.TapTap){
+                if (type == XD.SDK.Account.LoginType.TapTap){
                     str += "TAPTAP,";
-                } else if (type == LoginType.Google){
+                } else if (type == XD.SDK.Account.LoginType.Google){
                     str += "GOOGLE,";
-                } else if (type == LoginType.Facebook){
+                } else if (type == XD.SDK.Account.LoginType.Facebook){
                     str += "FACEBOOK,";
-                } else if (type == LoginType.Apple){
+                } else if (type == XD.SDK.Account.LoginType.Apple){
                     str += "APPLE,";
-                } else if (type == LoginType.LINE){
+                } else if (type == XD.SDK.Account.LoginType.LINE){
                     str += "LINE,";
-                } else if (type == LoginType.Twitter){
+                } else if (type == XD.SDK.Account.LoginType.Twitter){
                     str += "TWITTER,";
-                } else if (type == LoginType.Guest){
+                } else if (type == XD.SDK.Account.LoginType.Guest){
                     str += "GUEST,";
-                // } else if (type == LoginType.Twitch){
+                // } else if (type == XD.SDK.Account.LoginType.Twitch){
                 //     str += "TWITCH,";
-                } else if (type == LoginType.Steam){
+                } else if (type == XD.SDK.Account.LoginType.Steam){
                     str += "STEAM,";
-                // } else if (type == LoginType.QQ){
+                // } else if (type == XD.SDK.Account.LoginType.QQ){
                 //     str += "QQ,";
                 }
             }
@@ -266,7 +266,7 @@ namespace XD.SDK.Account{
                 }
 
                 if (wrapper.user == null){
-                    XDGTool.LogError($"LoginByType wrapper user 是空 ：{result.ToJSON()}");
+                    XDGTool.LogError($"LoginByType 登录失败3 wrapper user 是空 ：{result.ToJSON()}");
                 }
 
                 ActiveLearnCloudToken(wrapper.user, callback, errorCallback);

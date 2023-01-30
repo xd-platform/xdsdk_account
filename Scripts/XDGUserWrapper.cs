@@ -59,55 +59,55 @@ namespace XD.SDK.Account
             XDGTool.Log($"打印UserId: {_userId}");
         }
 
-        public LoginType GetLoginType(){
+        public XD.SDK.Account.LoginType GetLoginType(){
             var strType = this._loginType.ToLower();
             switch (strType){
                 case "taptap":
-                    return LoginType.TapTap;
+                    return XD.SDK.Account.LoginType.TapTap;
                 case "google":
-                    return LoginType.Google;
+                    return XD.SDK.Account.LoginType.Google;
                 case "facebook":
-                    return LoginType.Facebook;
+                    return XD.SDK.Account.LoginType.Facebook;
                 case "apple":
-                    return LoginType.Apple;
+                    return XD.SDK.Account.LoginType.Apple;
                 case "line":
-                    return LoginType.LINE;
+                    return XD.SDK.Account.LoginType.LINE;
                 case "twitter":
-                    return LoginType.Twitter;
+                    return XD.SDK.Account.LoginType.Twitter;
                 // case "qq":
-                //     return LoginType.QQ;
+                //     return XD.SDK.Account.LoginType.QQ;
                 // case "twitch":
-                //     return LoginType.Twitch;
+                //     return XD.SDK.Account.LoginType.Twitch;
                 case "steam":
-                    return LoginType.Steam;
+                    return XD.SDK.Account.LoginType.Steam;
                 case "guest":
-                    return LoginType.Guest;
+                    return XD.SDK.Account.LoginType.Guest;
             }
 
-            return LoginType.Default;
+            return XD.SDK.Account.LoginType.Default;
         }
 
         public static string GetLoginTypeString(LoginType loginType){
             switch (loginType){
-                case LoginType.TapTap:
+                case XD.SDK.Account.LoginType.TapTap:
                     return "TapTap";
-                case LoginType.Google:
+                case XD.SDK.Account.LoginType.Google:
                     return "Google";
-                case LoginType.Facebook:
+                case XD.SDK.Account.LoginType.Facebook:
                     return "Facebook";
-                case LoginType.Apple:
+                case XD.SDK.Account.LoginType.Apple:
                     return "Apple";
-                case LoginType.LINE:
+                case XD.SDK.Account.LoginType.LINE:
                     return "LINE";
-                case LoginType.Twitter:
+                case XD.SDK.Account.LoginType.Twitter:
                     return "Twitter";
-                // case LoginType.QQ:
+                // case XD.SDK.Account.LoginType.QQ:
                 //     return "QQ";
-                // case LoginType.Twitch:
+                // case XD.SDK.Account.LoginType.Twitch:
                 //     return "Twitch";
-                case LoginType.Steam:
+                case XD.SDK.Account.LoginType.Steam:
                     return "Steam";
-                case LoginType.Guest:
+                case XD.SDK.Account.LoginType.Guest:
                     return "Guest";
                 default:
                     return "Default";

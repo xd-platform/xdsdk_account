@@ -25,6 +25,6 @@ namespace XD.SDK.Account.Internal
         // The _userStandalone's token.
         IXDGAccessToken token { get; }
 
-        LoginType getLoginType();
+        XD.SDK.Account.LoginType getLoginType();
     }
 }

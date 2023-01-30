@@ -15,7 +15,7 @@ namespace XD.SDK.Account{
                 callback?.Invoke(u);
                 EventManager.LoginSuccessEvent();
 
-                if (u.GetLoginType() == LoginType.Facebook){
+                if (u.GetLoginType() == XD.SDK.Account.LoginType.Facebook){
                     XDGTokenManager.updateFacebookRefreshTime();
                 }
             }, (e) => {
@@ -30,9 +30,9 @@ namespace XD.SDK.Account{
                 callback?.Invoke(u);
                 EventManager.LoginSuccessEvent();
 
-                if (loginType == LoginType.Default){ //自动登录需要异步刷 Facebook token
+                if (loginType == XD.SDK.Account.LoginType.Default){ //自动登录需要异步刷 Facebook token
                     XDGTokenManager.updateFacebookToken(u);
-                } else if (loginType == LoginType.Facebook){
+                } else if (loginType == XD.SDK.Account.LoginType.Facebook){
                     XDGTokenManager.updateFacebookRefreshTime();
                 }
 
