@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using XD.SDK.Account.Internal;
 using XD.SDK.Common;
 using XD.SDK.Common.Internal;
+using LoginType = XD.SDK.Account.LoginType;
 
 namespace XD.SDK.Account{
     public class XDGAccountMobile : IXDGAccount

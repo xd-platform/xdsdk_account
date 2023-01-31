@@ -6,6 +6,7 @@ using LeanCloud.Storage;
 using TapTap.Bootstrap;
 using TapTap.Common;
 using XD.SDK.Common;
+using LoginType = XD.SDK.Account.LoginType;
 
 namespace XD.SDK.Account{
     public class XDGAccountMobileImpl{

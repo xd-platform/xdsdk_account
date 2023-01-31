@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine.Scripting;
 using XD.SDK.Account.Internal;
 using XD.SDK.Common.Internal;
+using LoginType = XD.SDK.Account.LoginType;
 
 [assembly: Preserve]
 namespace XD.SDK.Account{

@@ -178,7 +178,6 @@ namespace XD.SDK.Account
     }
 
     public enum LoginType{
-        Default     = -1,   // 自动登录，以上次登录成功的信息登录
         Guest       = 0,    // 游客登录
         WeChat      = 1,    // PC 未实现
         Apple       = 2,    // 苹果登录
@@ -187,9 +186,10 @@ namespace XD.SDK.Account
         TapTap      = 5,    // Tap 登录
         LINE        = 6,    // PC 未实现
         Twitter     = 7,    // PC 未实现
-        // QQ,
-        // Twitch,
+        // QQ       = 8,
+        // Twitch   = 9,
         Steam       = 10,   // Steam 登录
+        Default     = -1,   // 自动登录，以上次登录成功的信息登录
     }
     // ios的，要与后台一致！
     // XDGLoginInfoTypeGuest = 0,
