@@ -7,12 +7,13 @@ using System.Linq;
 using XD.SDK.Account;
 using XD.SDK.Account.Internal;
 using XD.SDK.Common;
+using XD.SDK.Common.Internal;
 
 namespace XD.SDK.Account
 {
 // The user's bound accounts. eg.@[@"TAPTAP",@"GOOGLE",@"FACEBOOK"]
     [Serializable]
-    public class XDGUser : IXDGUser {
+    public class XDGUserMobile : XDGUser {
         // The user's user ID.
         public string _userId;
 
@@ -34,7 +35,7 @@ namespace XD.SDK.Account
         // The user's token.
         public XDGAccessToken _token;
 
-        public XDGUser(string json){
+        public XDGUserMobile(string json){
                 Dictionary<string,object> dic = Json.Deserialize(json) as Dictionary<string,object>;
                 this._userId = SafeDictionary.GetValue<string>(dic, "userId");
                 this._sub = SafeDictionary.GetValue<string>(dic, "sub");
@@ -43,10 +44,10 @@ namespace XD.SDK.Account
                 this._avatar = SafeDictionary.GetValue<string>(dic, "avatar");
                 this._nickName = SafeDictionary.GetValue<string>(dic, "nickName");
                 this._boundAccounts = SafeDictionary.GetValue<List<object>>(dic, "boundAccounts").Cast<string>().ToList();
-                this._token = new XDGAccessToken(SafeDictionary.GetValue<Dictionary<string, object>>(dic, "token"));
+                this._token = new XDGAccessTokenMobile(SafeDictionary.GetValue<Dictionary<string, object>>(dic, "token"));
         }
         
-        public XDGUser(Dictionary<string,object> dic){   
+        public XDGUserMobile(Dictionary<string,object> dic){   
             this._userId = SafeDictionary.GetValue<string>(dic,"userId");
             this._sub = SafeDictionary.GetValue<string>(dic,"sub");
             this._name = SafeDictionary.GetValue<string>(dic,"name");
@@ -54,7 +55,7 @@ namespace XD.SDK.Account
             this._avatar = SafeDictionary.GetValue<string>(dic, "avatar");
             this._nickName = SafeDictionary.GetValue<string>(dic, "nickName");
             this._boundAccounts = SafeDictionary.GetValue<List<object>>(dic, "boundAccounts").Cast<string>().ToList();
-            this._token  = new XDGAccessToken(SafeDictionary.GetValue<Dictionary<string,object>>(dic,"token"));
+            this._token  = new XDGAccessTokenMobile(SafeDictionary.GetValue<Dictionary<string,object>>(dic,"token"));
             
             XDGTool.Log($"打印UserId: {_userId}");
         }
@@ -116,11 +117,12 @@ namespace XD.SDK.Account
         
         public string userId => _userId ;
         public string name => _name ;
-        public long loginType => (long)getLoginType();
+        public string sub => _sub ;
+        public string loginType => GetLoginTypeString(getLoginType());
         public string avatar => _avatar ;
         public string nickName => _nickName ;
         public List<string> boundAccounts => _boundAccounts ;
-        public IXDGAccessToken token => _token ;
+        public XDGAccessToken token => _token ;
         public LoginType getLoginType()
         {
             return (LoginType)GetLoginType();
@@ -140,17 +142,17 @@ namespace XD.SDK.Account
                 SafeDictionary.GetValue<Dictionary<string, object>>(contentDic, "error");
 
             if (userDic != null){
-                this.user = new XDGUser(userDic);
+                this.user = new XDGUserMobile(userDic);
             }
 
             if (errorDic != null){
-                this.error = new XDGError(errorDic);
+                this.error = new XDGErrorMobile(errorDic);
             }
         }
     }
 
     [Serializable]
-    public class XDGAccessToken : IXDGAccessToken {
+    public class XDGAccessTokenMobile : XDGAccessToken {
         // 唯一标志
         private string _kid;
 
@@ -163,7 +165,7 @@ namespace XD.SDK.Account
         // mac密钥计算方式
         private string _macAlgorithm;
 
-        public XDGAccessToken(Dictionary<string, object> dic){
+        public XDGAccessTokenMobile(Dictionary<string, object> dic){
             if (dic == null) return;
             this._kid = SafeDictionary.GetValue<string>(dic, "kid");
             this._tokenType = SafeDictionary.GetValue<string>(dic, "tokenType");

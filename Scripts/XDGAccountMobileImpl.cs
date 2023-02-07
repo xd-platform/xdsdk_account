@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using LeanCloud.Storage;
 using TapTap.Bootstrap;
 using TapTap.Common;
+using XD.SDK.Account.Internal;
 using XD.SDK.Common;
+using XD.SDK.Common.Internal;
 using LoginType = XD.SDK.Account.LoginType;
 
 namespace XD.SDK.Account{
@@ -42,7 +44,7 @@ namespace XD.SDK.Account{
                     XDGTool.Log("Login 方法结果: " + result.ToJSON());
                     if (!XDGTool.checkResultSuccess(result)){
                         XDGTool.LogError($"Login 登录失败1 :{result.ToJSON()}");
-                        errorCallback(new XDGError(result.code, result.message));
+                        errorCallback(new XDGErrorMobile(result.code, result.message));
                         return;
                     }
 
@@ -59,7 +61,7 @@ namespace XD.SDK.Account{
 
                     ActiveLearnCloudToken(userWrapper.user, callback, errorCallback);
                 } catch (Exception e){
-                    errorCallback(new XDGError(result.code, result.message));
+                    errorCallback(new XDGErrorMobile(result.code, result.message));
                     XDGTool.LogError("Login 报错" + e.Message);
                     Console.WriteLine(e);
                 }
@@ -100,7 +102,7 @@ namespace XD.SDK.Account{
             XDGTool.Log("LoginSync 开始执行  ActiveLearnCloudToken");
 
             if (user == null || XDGTool.IsEmpty(user.userId)){
-                errorCallback(new XDGError(-1001, "user is null"));
+                errorCallback(new XDGErrorMobile(-1001, "user is null"));
                 XDGTool.LogError("LoginSync 报错：user 是空！");
                 return;
             } else{
@@ -131,7 +133,7 @@ namespace XD.SDK.Account{
                     XDGTool.Log("LoginSync 方法结果: " + resultJson);
                     if (!XDGTool.checkResultSuccess(result)){
                         XDGCommon.HideLoading();
-                        errorCallback(new XDGError(result.code, result.message));
+                        errorCallback(new XDGErrorMobile(result.code, result.message));
                         return;
                     }
 
@@ -141,14 +143,14 @@ namespace XD.SDK.Account{
 
                     if (errorDic != null){ //接口失败
                         XDGCommon.HideLoading();
-                        errorCallback(new XDGError(errorDic));
+                        errorCallback(new XDGErrorMobile(errorDic));
                         XDGTool.LogError("LoginSync 报错：请求sessionToken接口失败， 【result结果：" + resultJson + "】");
                         return;
                     }
 
                     if (XDGTool.IsEmpty(sessionToken)){ //接口成功，token是空(不太可能吧)
                         XDGCommon.HideLoading();
-                        errorCallback(new XDGError(-1000, "sessionToken is null"));
+                        errorCallback(new XDGErrorMobile(-1000, "sessionToken is null"));
                         XDGTool.LogError("LoginSync 报错：token 是空！ 【result结果：" + resultJson + "】");
                         return;
                     }
@@ -162,7 +164,7 @@ namespace XD.SDK.Account{
                     XDGTool.Log("LoginSync  BecomeWithSessionToken 执行完毕");
                 } catch (Exception e){
                     XDGCommon.HideLoading();
-                    errorCallback(new XDGError(result.code, result.message));
+                    errorCallback(new XDGErrorMobile(result.code, result.message));
                     if (e.InnerException != null){
                         XDGTool.LogError("LoginSync 报错：" + e.Message + e.StackTrace + "【InnerException： " +
                                          e.InnerException.Message + e.InnerException.StackTrace + "】" + "。 【result结果：" +
@@ -218,7 +220,7 @@ namespace XD.SDK.Account{
                 XDGTool.Log("GetUser 方法结果: " + result.ToJSON());
                 if (!XDGTool.checkResultSuccess(result)){
                     XDGTool.LogError($"GetUser 失败1 :{result.ToJSON()}");
-                    errorCallback(new XDGError(result.code, result.message));
+                    errorCallback(new XDGErrorMobile(result.code, result.message));
                     return;
                 }
 
@@ -246,7 +248,7 @@ namespace XD.SDK.Account{
             var command = new Command.Builder()
                 .Service(XDG_ACCOUNT_SERVICE)
                 .Method("loginByType")
-                .Args("loginType", XDGUser.GetLoginTypeString(loginType)) //和app交互用的是字符串，如TapTap 
+                .Args("loginType", XDGUserMobile.GetLoginTypeString(loginType)) //和app交互用的是字符串，如TapTap 
                 .Callback(true)
                 .CommandBuilder();
 
@@ -255,7 +257,7 @@ namespace XD.SDK.Account{
                 XDGTool.Log("LoginByType 方法结果: " + result.ToJSON());
                 if (!XDGTool.checkResultSuccess(result)){
                     XDGTool.LogError($"LoginByType 登录失败1：{result.ToJSON()} ");
-                    errorCallback(new XDGError(result.code, result.message));
+                    errorCallback(new XDGErrorMobile(result.code, result.message));
                     return;
                 }
 
@@ -284,7 +286,7 @@ namespace XD.SDK.Account{
             var command = new Command.Builder()
                 .Service(XDG_ACCOUNT_SERVICE)
                 .Method("isTokenActiveWithType")
-                .Args("isTokenActiveWithType", XDGUser.GetLoginTypeString(loginType))
+                .Args("isTokenActiveWithType", XDGUserMobile.GetLoginTypeString(loginType))
                 .Callback(true)
                 .CommandBuilder();
                 
@@ -306,7 +308,7 @@ namespace XD.SDK.Account{
             var command = new Command.Builder()
                 .Service(XDG_ACCOUNT_SERVICE)
                 .Method("bindByType")
-                .Args("bindByType", XDGUser.GetLoginTypeString(loginType))
+                .Args("bindByType", XDGUserMobile.GetLoginTypeString(loginType))
                 .Callback(true)
                 .CommandBuilder();
                 
@@ -315,7 +317,7 @@ namespace XD.SDK.Account{
                 
                 if (!XDGTool.checkResultSuccess(result)){
                     XDGTool.LogError($"bindByType 失败1：{result.ToJSON()} ");
-                    callback(false, new XDGError(result.code, result.message));
+                    callback(false, new XDGErrorMobile(result.code, result.message));
                     return;
                 }
                 
@@ -323,9 +325,9 @@ namespace XD.SDK.Account{
                 var success = SafeDictionary.GetValue<bool>(contentDic, "success");
                 var errorDic = SafeDictionary.GetValue<Dictionary<string, object>>(contentDic, "error");
                 
-                XDGError error = null;
+                XDGErrorMobile error = null;
                 if (errorDic != null){
-                    error = new XDGError(errorDic);
+                    error = new XDGErrorMobile(errorDic);
                     XDGTool.LogError($"bindByType 失败2：{result.ToJSON()} ");
                 }
                 callback(success, error);
@@ -343,7 +345,7 @@ namespace XD.SDK.Account{
                 XDGTool.Log("getFacebookToken 方法结果: " + result.ToJSON());
                 if (!XDGTool.checkResultSuccess(result)){
                     XDGTool.LogError($"getFacebookToken 失败1：{result.ToJSON()} ");
-                    errorCallback(new XDGError(result.code, result.message));
+                    errorCallback(new XDGErrorMobile(result.code, result.message));
                     return;
                 }
                 
@@ -354,7 +356,7 @@ namespace XD.SDK.Account{
 
                 if (errorDic != null){
                     XDGTool.LogError($"getFacebookToken 失败2：{result.ToJSON()} ");
-                    errorCallback(new XDGError(errorDic));
+                    errorCallback(new XDGErrorMobile(errorDic));
                 } else{
                     successCallback(userId, accessToken);
                 }

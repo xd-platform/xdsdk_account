@@ -16,7 +16,7 @@ namespace XD.SDK.Account{
                 callback?.Invoke(u);
                 EventManager.LoginSuccessEvent();
 
-                if (u.GetLoginType() == XD.SDK.Account.LoginType.Facebook){
+                if (u.loginType.ToLower().Equals("facebook")){
                     XDGTokenManager.updateFacebookRefreshTime();
                 }
             }, (e) => {
@@ -42,18 +42,6 @@ namespace XD.SDK.Account{
                 EventManager.LoginFailEvent(e.error_msg);
             });
         }
-        
-        /// <summary>
-        /// 发行在主机(Steam/PS/Nintendo)上的游戏的自动登录接口
-        /// </summary>
-        /// <param name="successCallback">该主机的账号注册过心动账号，那么会返回登录成功（第二次登录的时候，如果主机账号没有发生改变，会直接返回登录成功，略过网络请求）</param>
-        /// <param name="failCallback">该主机的账号未注册过心动账号，那么会返回失败。这个时候需要调用LoginByType登录</param>
-        /// <param name="errorCallback">网络请求错误或者非主机平台的游戏调用，以及其他错误</param>
-        public static void LoginByConsole(Action<XDGUser> successCallback, Action failCallback, Action<XDGError> errorCallback)
-        {
-            UnityEngine.Debug.LogErrorFormat("NotImplementedException");
-        }
-
 
         public static void Logout()
         {
@@ -64,15 +52,7 @@ namespace XD.SDK.Account{
         public static void AddUserStatusChangeCallback(Action<XDGUserStatusCodeType, string> callback){
             XDGAccountMobileImpl.GetInstance().AddUserStatusChangeCallback(callback);
         }
-
-        public static void GetUser(Action<XDGUser> callback, Action<XDGError> errorCallback){
-            XDGAccountMobileImpl.GetInstance().GetUser((u) =>
-            {
-                XDGCommon.UserId = u.userId;
-                callback?.Invoke(u);
-            }, errorCallback);
-        }
-
+        
         public static void OpenUserCenter(){
             XDGAccountMobileImpl.GetInstance().OpenUserCenter();
         }
@@ -85,25 +65,25 @@ namespace XD.SDK.Account{
         public static void IsTokenActiveWithType(LoginType loginType, Action<bool> callback){
             XDGAccountMobileImpl.GetInstance().IsTokenActiveWithType(loginType, callback);
         }
-        
-        //除了 Default 和 Guest
-        public static void BindByType(LoginType loginType, Action<bool,XDGError> callback){
-            XDGAccountMobileImpl.GetInstance().BindByType(loginType, callback);
-        }
-
 
         #region Interface
-        void IXDGAccount.Login(List<LoginType> loginTypes, Action<IXDGUser> callback, Action<IXDGError> errorCallback)
+        void IXDGAccount.Login(List<LoginType> loginTypes, Action<XDGUser> callback, Action<XDGError> errorCallback)
         {
-            Login(loginTypes, callback, (error)=> errorCallback(error as IXDGError));
+            Login(loginTypes, callback, (error)=> errorCallback(error as XDGError));
         }
 
-        void IXDGAccount.LoginByType(LoginType loginType, Action<IXDGUser> callback, Action<IXDGError> errorCallback)
+        void IXDGAccount.LoginByType(LoginType loginType, Action<XDGUser> callback, Action<XDGError> errorCallback)
         {
-            LoginByType(loginType, callback, (error)=> errorCallback(error as IXDGError));
+            LoginByType(loginType, callback, (error)=> errorCallback(error as XDGError));
         }
 
-        void IXDGAccount.LoginByConsole(Action<IXDGUser> successCallback, Action failCallback, Action<IXDGError> errorCallback)
+        /// <summary>
+        /// 发行在主机(Steam/PS/Nintendo)上的游戏的自动登录接口
+        /// </summary>
+        /// <param name="successCallback">该主机的账号注册过心动账号，那么会返回登录成功（第二次登录的时候，如果主机账号没有发生改变，会直接返回登录成功，略过网络请求）</param>
+        /// <param name="failCallback">该主机的账号未注册过心动账号，那么会返回失败。这个时候需要调用LoginByType登录</param>
+        /// <param name="errorCallback">网络请求错误或者非主机平台的游戏调用，以及其他错误</param>
+        void IXDGAccount.LoginByConsole(Action<XDGUser> successCallback, Action failCallback, Action<XDGError> errorCallback)
         {
             UnityEngine.Debug.LogErrorFormat("NotImplementedException");
         }
@@ -118,13 +98,13 @@ namespace XD.SDK.Account{
             AddUserStatusChangeCallback(callback);
         }
 
-        public void GetUser(Action<IXDGUser> callback, Action<IXDGError> errorCallback)
+        public void GetUser(Action<XDGUser> callback, Action<XDGError> errorCallback)
         {
             XDGAccountMobileImpl.GetInstance().GetUser((u) =>
             {
                 XDGCommon.UserId = u.userId;
                 callback?.Invoke(u);
-            }, (error)=> errorCallback(error as IXDGError));
+            }, (error)=> errorCallback(error as XDGError));
         }
 
         void IXDGAccount.OpenUserCenter()
@@ -142,9 +122,10 @@ namespace XD.SDK.Account{
             IsTokenActiveWithType(loginType, callback);
         }
 
-        public void BindByType(LoginType loginType, Action<bool, IXDGError> callback)
+        //除了 Default 和 Guest
+        public void BindByType(LoginType loginType, Action<bool, XDGError> callback)
         {
-            XDGAccountMobileImpl.GetInstance().BindByType(loginType, (b, error)=> callback(b, error as IXDGError));
+            XDGAccountMobileImpl.GetInstance().BindByType(loginType, (b, error)=> callback(b, error as XDGError));
         }
         #endregion
     }

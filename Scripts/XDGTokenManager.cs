@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TapTap.Bootstrap;
 using TapTap.Common;
+using XD.SDK.Account.Internal;
 using XD.SDK.Common;
 
 namespace XD.SDK.Account{

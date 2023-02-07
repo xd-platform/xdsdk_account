@@ -1,6 +1,6 @@
 namespace XD.SDK.Account.Internal
 {
-    public interface IXDGAccessToken
+    public interface XDGAccessToken
     {
         // 唯一标志
         string kid { get; }

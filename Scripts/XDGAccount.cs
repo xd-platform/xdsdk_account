@@ -23,17 +23,17 @@ namespace XD.SDK.Account{
             }
         }
         
-        public static void Login(List<LoginType> loginTypes, Action<IXDGUser> callback, Action<IXDGError> errorCallback)
+        public static void Login(List<LoginType> loginTypes, Action<XDGUser> callback, Action<XDGError> errorCallback)
         {
             platformWrapper.Login(loginTypes, callback, errorCallback);
         }
 
-        public static void LoginByType(LoginType loginType, Action<IXDGUser> callback, Action<IXDGError> errorCallback)
+        public static void LoginByType(LoginType loginType, Action<XDGUser> callback, Action<XDGError> errorCallback)
         {
             platformWrapper.LoginByType(loginType, callback, errorCallback);
         }
 
-        public static void LoginByConsole(Action<IXDGUser> successCallback, Action failCallback, Action<IXDGError> errorCallback)
+        public static void LoginByConsole(Action<XDGUser> successCallback, Action failCallback, Action<XDGError> errorCallback)
         {
             platformWrapper.LoginByConsole(successCallback, failCallback, errorCallback);
         }
@@ -47,7 +47,7 @@ namespace XD.SDK.Account{
             platformWrapper.AddUserStatusChangeCallback(callback);
         }
         
-        public static void GetUser(Action<IXDGUser> callback, Action<IXDGError> errorCallback)
+        public static void GetUser(Action<XDGUser> callback, Action<XDGError> errorCallback)
         {
             platformWrapper.GetUser(callback, errorCallback);
         }
@@ -66,7 +66,7 @@ namespace XD.SDK.Account{
         }
         
         //除了 Default 和 Guest
-        public static void BindByType(LoginType loginType, Action<bool,IXDGError> callback){
+        public static void BindByType(LoginType loginType, Action<bool,XDGError> callback){
             platformWrapper.BindByType(loginType, callback);
         }
 
