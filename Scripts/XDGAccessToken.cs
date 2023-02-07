@@ -1,4 +1,4 @@
-namespace XD.SDK.Account.Internal
+namespace XD.SDK.Account
 {
     public interface XDGAccessToken
     {

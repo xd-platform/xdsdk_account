@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Scripting;
 using XD.SDK.Account.Internal;
-using XD.SDK.Common.Internal;
+using XD.SDK.Common;
 using LoginType = XD.SDK.Account.LoginType;
 
 [assembly: Preserve]

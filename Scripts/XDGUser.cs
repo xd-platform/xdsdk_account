@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace XD.SDK.Account.Internal
+namespace XD.SDK.Account
 {
     public interface XDGUser
     {
